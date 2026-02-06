@@ -2,8 +2,8 @@
 import express from 'express'
 const app = express();
 
-import StudentRouter from './routes/students.js'
-import StudentModel from './models/studentModel.js'
+import StudentRouter from './src/routes/students.js'
+import StudentModel from './src/models/studentModel.js'
 
 StudentModel.createTable()
 
