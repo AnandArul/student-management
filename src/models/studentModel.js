@@ -1,4 +1,4 @@
-// const db = require("../db/connect.js");
+
 import db from '../db/connect.js'
 
 const createTable = () => {
