@@ -24,6 +24,14 @@ const createTable = () => {
     });
 };
 
+const fetchAll = (student, callback) => {
+    const sql = `SELECT * FROM students`
+    db.all(sql, [], (err, data) => {
+        if (err) callback(err)
+        callback(null, data)
+    })
+}
+
 const create = (student, callback) => {
     const sql = `
         INSERT INTO students (name, age, gender, class, section)
@@ -43,13 +51,30 @@ const create = (student, callback) => {
     );
 }
 
-const fetchAll = (student, callback) => {
-    const sql = `SELECT * FROM students`
-    db.all(sql, [], (err, data) => {
-        if (err) callback(err)
+const read = (studentId, callback) => {
+    const sql = `SELECT * FROM students WHERE id=?`
+
+    db.get(sql, [studentId], (err, data) => {
+        if (err) { callback(err) }
         callback(null, data)
     })
 }
 
-export default { createTable, create, fetchAll };
+const update = (studentId, student, callback) => {
+    const sql = `UPDATE students SET name=?, age=?, gender=?, class=?, section=? WHERE id=?`
+    db.run(sql, [student.name, student.age, student.gender, student.class, student.section, studentId], (err) => {
+        if (err) { callback(err) }
+        callback(null, { message: "Student updated", changes: this })
+    })
+}
+
+const remove = (studentId, callback) => {
+    const sql = `DELETE FROM students WHERE id=?`
+    db.run(sql, [studentId], (err, data) => {
+        if (err) { callback(err) }
+        callback(null, { message: "Student Deleted" })
+    })
+}
+
+export default { createTable, fetchAll, create, read, update, remove };
 
