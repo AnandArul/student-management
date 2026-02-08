@@ -34,6 +34,7 @@ const registerUser = async (user, callback) => {
 }
 
 const findByMail = (userMail, callback) => {
+    console.log(userMail)
     const sql = `SELECT * FROM users WHERE email=?`
     db.get(sql, [userMail], (err, data) => {
         if (err) {

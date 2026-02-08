@@ -18,6 +18,7 @@ const registerUser = (req, res) => {
 
 const login = (req, res) => {
     Auth.findByMail(req.body.email, async (err, data) => {
+        console.log(data)
         if (err || !data) {
             res.status(401).send('Invalid email')
         } else {
